@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import { Card, Icon, Image, Button } from 'semantic-ui-react';
 
+// import styles from './FileUpload.module.css';
 import styles from './FileUpload.module.css';
 
 const FileUpload = () => {
@@ -26,6 +27,11 @@ const FileUpload = () => {
       reader.readAsDataURL(file);
     });
   }, []);
+
+  const match = () => {
+    const res = axios.get('http://localhost:5000/match');
+    console.log(res);
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -73,6 +79,7 @@ const FileUpload = () => {
           </Card>
         );
       })}{' '}
+      <button onClick={match}>Match</button>
     </section>
   );
 };
