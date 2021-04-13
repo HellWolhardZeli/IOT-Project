@@ -4,7 +4,7 @@ import cv2
 
 detector = cv2.CascadeClassifier("haarcascade_fullbody.xml")
 
-cap = cv2.VideoCapture("cap.mp4")
+cap = cv2.VideoCapture("./uploads/videos/cap.mp4")
 
 frame = 0
 
@@ -20,7 +20,7 @@ while(True):
 
         cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
         status = cv2.imwrite(
-            './images/'+'faces_detected'+str(frame)+'.jpg', img)
+            './public/images/'+str(frame)+'.jpg', img)
         frame += 1
         print("[INFO] Image faces_detected.jpg written to filesystem: ", status)
 

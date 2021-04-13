@@ -2,8 +2,9 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const fs = require('fs');
+const { PythonShell } = require('python-shell');
 
-const imgDir = 'images';
+const imgDir = 'public/images';
 const toFindDir = 'toFindImage';
 
 const app = express();
@@ -20,6 +21,8 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+app.use(express.static('public'));
 
 // Upload Endpoint
 app.post('/upload/image', (req, res) => {
@@ -73,6 +76,13 @@ async function veriyfyFaceId(image1, image2) {
   return isSame;
 }
 
+app.get('/split', (req, res) => {
+  PythonShell.run('frec.py', null, function (err) {
+    if (err) throw err;
+    console.log('finished python');
+  });
+});
+
 app.get('/match', async (req, res) => {
   var filenames = fs.readdirSync(imgDir);
   let FaceIds = await Promise.all(
@@ -84,9 +94,9 @@ app.get('/match', async (req, res) => {
       });
     })
   );
-  filenames = fs.readdirSync(toFindDir);
+  filenamesToFind = fs.readdirSync(toFindDir);
   let FaceId = await Promise.all(
-    filenames.map(async function (filename, i) {
+    filenamesToFind.map(async function (filename, i) {
       const imageBuffer = fs.readFileSync(toFindDir + '/' + filename);
       var faces = await findFaceId(imageBuffer);
       return faces.map(function (face) {
@@ -103,6 +113,15 @@ app.get('/match', async (req, res) => {
     })
   );
   console.log(foundArr);
+  var isIdenticalArr = [];
+  foundArr.forEach(
+    (foundAdd = (element, i) => {
+      if (element.isIdentical) {
+        isIdenticalArr.push(filenames[i]);
+      }
+    })
+  );
+  res.send(isIdenticalArr);
 });
 
 app.listen(5000, () => console.log('Server Started...'));

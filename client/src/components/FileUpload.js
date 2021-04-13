@@ -28,11 +28,6 @@ const FileUpload = () => {
     });
   }, []);
 
-  const match = () => {
-    const res = axios.get('http://localhost:5000/match');
-    console.log(res);
-  };
-
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -79,7 +74,6 @@ const FileUpload = () => {
           </Card>
         );
       })}{' '}
-      <button onClick={match}>Match</button>
     </section>
   );
 };
