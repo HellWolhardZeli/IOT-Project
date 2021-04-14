@@ -16,4 +16,33 @@
   color: #bdbdbd;
   outline: none;
   transition: border 0.24s ease-in-out;
+  width: fit-content;
+  margin: 20px;
 }
+.button {
+  padding: 5px;
+  border-width: 2px;
+  border-radius: 2px;
+  width: 100px;
+  margin: 20px;
+}
+.image{
+  margin-top:  20px;;
+  max-height: 300px;
+  max-width: 250px;
+}
+
+.video{
+  margin-top:  20px;;
+  height: 300px;
+  max-width: 250px;
+}
+.container {
+  max-width: 400px;  
+  
+}
+/* .card {
+  display: flex;
+  flex-direction: row;
+} */
+

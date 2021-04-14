@@ -57,7 +57,7 @@ const FileUpload = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <section className='container'>
+    <section className={styles.container}>
       <div {...getRootProps({ className: styles.dropzone })}>
         <input {...getInputProps()} />
         <p>Drag 'n' drop some files here, or click to select files</p>
@@ -68,10 +68,28 @@ const FileUpload = () => {
       {previewFiles.length}
       {previewFiles.map((image) => {
         return (
-          <Card>
-            <Image src={image}></Image>
+          <div>
+          {/* <Card>
+            <Image className= {styles.image}  src={image}></Image>
             hello
-          </Card>
+          </Card>   
+
+           <Card>
+          <Image className= {styles.image} src={image} ></Image>
+          <Card.Content>
+            <Card.Description>
+              Confidence:
+            </Card.Description>
+          </Card.Content>
+          
+        </Card>  */}
+        
+        <img src={image} className= {styles.image}></img>
+        
+        </div> 
+          /* <div>
+            <img src={image} className= {styles.image}></img>
+          </div> */
         );
       })}{' '}
     </section>

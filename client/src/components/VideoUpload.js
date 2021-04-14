@@ -56,7 +56,7 @@ const VideoUpload = () => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <section className='container'>
+    <section className={styles.container}>
       <div {...getRootProps({ className: styles.dropzone })}>
         <input {...getInputProps()} />
         <p>Drag 'n' drop some files here, or click to select files</p>
@@ -64,11 +64,14 @@ const VideoUpload = () => {
       <Button type='submit' onClick={onSubmit}>
         Submit
       </Button>
+      
       {toBeUploaded.map((videoFile) => {
         return (
-          <video width='400' controls>
+          <div>
+          <video className= {styles.video} width='400' controls>
             <source src={URL.createObjectURL(videoFile)} />
           </video>
+          </div>
         );
       })}{' '}
     </section>

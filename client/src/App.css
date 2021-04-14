@@ -1,0 +1,17 @@
+#left {
+    float:left; 
+ 
+    width:50%;
+    /* height:280px; */
+}
+
+#right{
+    float:right;
+
+    width:50%;
+    /* height:280px; */
+}
+.container{
+    background-color: #000000;
+    background-image: url("https://www.transparenttextures.com/patterns/brick-wall.png");
+}
