@@ -78,7 +78,7 @@ async function veriyfyFaceId(image1, image2) {
 
 app.get('/split', (req, res) => {
   PythonShell.run('frec.py', null, function (err) {
-    if (err) throw err;
+    if (err) console.log(err);
     console.log('finished python');
   });
 });

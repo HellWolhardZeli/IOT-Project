@@ -4,7 +4,7 @@ import cv2
 
 detector = cv2.CascadeClassifier("haarcascade_fullbody.xml")
 
-cap = cv2.VideoCapture("./uploads/videos/cap.mp4")
+cap = cv2.VideoCapture("./uploads/videos/video.mp4")
 
 frame = 0
 
@@ -14,7 +14,7 @@ while(True):
 
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    faces = detector.detectMultiScale(gray, 1.3, 5)
+    faces = detector.detectMultiScale(gray, 1.1, 4)
 
     for (x, y, w, h) in faces:
 
