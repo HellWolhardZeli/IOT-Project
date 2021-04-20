@@ -11,20 +11,23 @@ frame = 0
 while(True):
 
     ret, img = cap.read()
+    if img.any():
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faces = detector.detectMultiScale(gray, 1.1, 4)
 
-    faces = detector.detectMultiScale(gray, 1.1, 4)
+        if frame % 50 == 0:
+            print(frame)
+            for (x, y, w, h) in faces:
 
-    for (x, y, w, h) in faces:
+                cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
+                status = cv2.imwrite(
+                    './public/images/'+str(frame)+'.jpg', img)
 
-        cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
-        status = cv2.imwrite(
-            './public/images/'+str(frame)+'.jpg', img)
+                print(
+                    "[INFO] Image faces_detected.jpg written to filesystem: ", status)
         frame += 1
-        print("[INFO] Image faces_detected.jpg written to filesystem: ", status)
-
-    cv2.imshow('frame', img)
+        # cv2.imshow('frame', img)
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
 

@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Grid, Card, Icon, Image } from 'semantic-ui-react'
+import { Grid, Card, Icon, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import styles from './FileUpload.module.css';
 export default function Match() {
   const [identicalArr, setidenticalArr] = useState([]);
+  const [done, setDone] = useState('');
   const split = () => {
     axios.get('http://localhost:5000/split').then((res) => {
       console.log(res.data);
+      setDone(res.data);
     });
   };
   const match = () => {
@@ -17,15 +19,19 @@ export default function Match() {
   };
   return (
     <div>
-      <button className={styles.button} onClick={split}>Split</button>
+      <button className={styles.button} onClick={split}>
+        Split
+      </button>
+      <p>{done}</p>
 
-      <button className={styles.button} onClick={match}>Match</button>
+      <button className={styles.button} onClick={match}>
+        Match
+      </button>
       {/* dummy image */}
       <Grid relaxed columns={4}>
-      
-      {identicalArr.map((fileName) => {
-        return (
-          /* <Card className={styles.card}>
+        {identicalArr.map((fileName) => {
+          return (
+            /* <Card className={styles.card}>
             <Image src={`http://localhost:3000/images/${fileName}`} wrapped ui={false} />
             <Card.Content>
               <Card.Description>
@@ -34,20 +40,18 @@ export default function Match() {
             </Card.Content>
             
           </Card> */
-          
-          <Grid.Column>
-                <Image src={`http://localhost:3000/images/${fileName}`} />
-                <p>Confidence:</p>
-          </Grid.Column>
 
-        )
-       
-        /* <img src={`http://localhost:3000/images/${fileName}`} alt='' />; */ 
-      })}
-      
-            
-            </Grid>
-  
+            <Grid.Column>
+              <Image
+                src={`http://localhost:3000/images/${fileName.filepath}`}
+              />
+              <p>Confidence: {fileName.confidence}</p>
+            </Grid.Column>
+          );
+
+          /* <img src={`http://localhost:3000/images/${fileName}`} alt='' />; */
+        })}
+      </Grid>
     </div>
   );
 }

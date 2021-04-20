@@ -6,12 +6,12 @@ import './App.css';
 // // import styles from './App.css';
 // import styles from "../src/App.css"
 const App = () => (
-  <div className='container mt-4' >
-    <div id="left">
+  <div className='container mt-4'>
+    <div id='left'>
       <FileUpload />
       <VideoUpload></VideoUpload>
     </div>
-    <div id="right">
+    <div id='right'>
       <Match></Match>
     </div>
   </div>

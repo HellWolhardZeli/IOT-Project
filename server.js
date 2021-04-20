@@ -5,7 +5,7 @@ const fs = require('fs');
 const { PythonShell } = require('python-shell');
 
 const imgDir = 'public/images';
-const toFindDir = 'toFindImage';
+const toFindDir = 'uploads/images';
 
 const app = express();
 
@@ -80,6 +80,7 @@ app.get('/split', (req, res) => {
   PythonShell.run('frec.py', null, function (err) {
     if (err) console.log(err);
     console.log('finished python');
+    res.send('Splitting Done');
   });
 });
 
@@ -114,13 +115,18 @@ app.get('/match', async (req, res) => {
   );
   console.log(foundArr);
   var isIdenticalArr = [];
-  foundArr.forEach(
-    (foundAdd = (element, i) => {
+  foundArr.forEach((element, i) => {
+    if (element) {
+      console.log('Here');
       if (element.isIdentical) {
-        isIdenticalArr.push(filenames[i]);
+        isIdenticalArr.push({
+          filepath: filenames[i],
+          confidence: element.confidence,
+        });
       }
-    })
-  );
+    }
+  });
+  console.log(isIdenticalArr);
   res.send(isIdenticalArr);
 });
 
